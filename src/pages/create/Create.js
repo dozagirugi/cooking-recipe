@@ -13,7 +13,7 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title, method, cookingTime);
+    console.log(title, method, cookingTime, ingredients);
   };
 
   const handleAdd = (e) => {
