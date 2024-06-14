@@ -45,7 +45,7 @@ export const useFetch = (url, method = "GET") => {
       }
     };
 
-    // invoke the function
+    //GET 일때 실행
     if (method === "GET") {
       fetchData();
     }
