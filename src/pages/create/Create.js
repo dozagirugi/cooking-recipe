@@ -1,5 +1,5 @@
 import "./Create.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const Create = () => {
   //새 레시피 작성 시 제목, 요리 방법, 요리 시간을 입력받겠다.
@@ -7,9 +7,23 @@ const Create = () => {
   const [method, setMethod] = useState("");
   const [cookingTime, setCookingTime] = useState("");
 
+  const [newIngredient, setNewIngredient] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const ingredientInput = useRef();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(title, method, cookingTime);
+  };
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+    const ing = newIngredient.trim(); //공백 제러
+    if (ing && !ingredients.includes(ing)) {
+      setIngredients((prev) => [...prev, ing]);
+    }
+    setNewIngredient("");
+    ingredientInput.current.focus();
   };
 
   return (
@@ -27,6 +41,26 @@ const Create = () => {
         </label>
 
         {/* recipe ingredients here */}
+        <label>
+          <span>요리 재료:</span>
+          <div className="ingredients">
+            <input
+              type="text"
+              onChange={(e) => setNewIngredient(e.target.value)}
+              value={newIngredient}
+              ref={ingredientInput}
+            />
+            <button onClick={handleAdd} className="btn">
+              사용
+            </button>
+          </div>
+        </label>
+        <p>
+          재료들 :{" "}
+          {ingredients.map((i) => (
+            <em key={i}>{i}, </em>
+          ))}
+        </p>
 
         <label>
           <span>요리 방법:</span>
